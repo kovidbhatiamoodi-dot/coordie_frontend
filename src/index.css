@@ -987,7 +987,7 @@ button {
 .form__checkboxes {
   display: flex;
 
-  flex-wrap: wrap;
+  flex-direction: column;
 
   gap: 0.7rem;
 }
