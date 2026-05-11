@@ -762,7 +762,7 @@ button {
 }
 
 .department-card__tag {
-  font-size: 0.7rem;
+  font-size: 071rem;
 
   letter-spacing: 0.28em;
 
@@ -1453,8 +1453,8 @@ button {
   }
 
   .id-card__template-name {
-    top: 78%;
-    font-size: 8rem;
+    top: 70%;
+    font-size: 4rem;
     line-height: 0.7;
   }
 
