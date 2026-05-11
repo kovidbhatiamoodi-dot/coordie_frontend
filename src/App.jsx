@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import HeroSection from './components/HeroSection';
 import DepartmentSection from './components/DepartmentSection';
-import CarouselSection from './components/CarouselSection';
 import Navbar from './components/Navbar';
 import RegisterModal from './components/RegisterModal';
 
@@ -18,7 +17,6 @@ export default function App() {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [registered, setRegistered] = useState(false);
   const [formData, setFormData] = useState(EMPTY_FORM);
-  const [gameAnswers, setGameAnswers] = useState([]);
   const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
 
   const apiBase = useMemo(() => {
@@ -34,7 +32,6 @@ export default function App() {
     try {
       const payload = {
         ...formData,
-        gameAnswers,
         submittedAt: new Date().toISOString(),
       };
       const response = await fetch(`${apiBase}/api/register`, {
@@ -61,11 +58,7 @@ export default function App() {
       <Navbar onRegisterClick={openRegister} />
       <main>
         <HeroSection onRegisterClick={openRegister} />
-        <DepartmentSection />
-        <CarouselSection
-          onRegisterClick={openRegister}
-          onAnswersChange={setGameAnswers}
-        />
+        <DepartmentSection onRegisterClick={openRegister} />
       </main>
       <RegisterModal
         open={registerOpen}

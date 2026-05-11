@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { departments } from '../data/departments';
 
-export default function DepartmentSection() {
+export default function DepartmentSection({ onRegisterClick }) {
   return (
     <section id="departments" className="section section--departments">
       <div className="section__header">
@@ -35,6 +35,23 @@ export default function DepartmentSection() {
             <div className="department-card__accent" style={{ background: department.accent }} />
           </motion.article>
         ))}
+
+        <motion.button
+          type="button"
+          className="department-register-cta"
+          initial={{ opacity: 0, scale: 0.8, rotateX: 30, y: 50, z: -50 }}
+          whileInView={{ opacity: 1, scale: 1, rotateX: 0, y: 0, z: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{
+            duration: 0.6,
+            ease: 'easeOut',
+            delay: (departments.length % 6) * 0.1,
+          }}
+          onClick={onRegisterClick}
+          aria-label="Open registration"
+        >
+          <img src="/REGISTER.png" alt="Register" />
+        </motion.button>
       </div>
     </section>
   );

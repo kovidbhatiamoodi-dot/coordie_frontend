@@ -13,8 +13,8 @@ export default function Navbar({ onRegisterClick }) {
         <a href="#hero">About</a>
         <a href="#departments">Departments</a>
       </nav>
-      <button className="button button--ghost" type="button" onClick={onRegisterClick}>
-        Register
+      <button className="button button--ghost nav__register-button" type="button" onClick={onRegisterClick} aria-label="Register">
+        <img src="/REGISTER.png" alt="Register" className="nav__register-image" />
       </button>
     </header>
   );

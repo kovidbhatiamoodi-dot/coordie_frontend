@@ -223,6 +223,24 @@ button {
   border: 1px solid var(--line);
 }
 
+.nav__register-button {
+  background: transparent;
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.nav__register-button:hover {
+  background: transparent;
+  border-color: transparent;
+}
+
+.nav__register-image {
+  display: block;
+  width: auto;
+  height: 45px;
+  object-fit: contain;
+}
+
 /* ================= HERO ================= */
 
 .hero {
@@ -709,6 +727,27 @@ button {
   min-height: 220px;
 }
 
+.department-register-cta {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+}
+
+.department-register-cta img {
+  display: block;
+  width: min(100%, 760px);
+  max-height: 360px;
+  object-fit: contain;
+}
+
 .department-card h3 {
   margin: 0.9rem 0;
 
@@ -829,6 +868,36 @@ button {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
   gap: 2rem;
+}
+
+.modal__whatsapp {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal__whatsapp p {
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.modal__whatsapp a {
+  color: #25d366;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.modal__whatsapp a:hover {
+  color: #4ef07d;
 }
 
 .form {
@@ -1015,6 +1084,41 @@ button {
   flex-wrap: wrap;
 
   gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__submit-button.button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__submit-button.button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.modal__submit-image {
+  display: block;
+  width: min(100%, 180px);
+  height: auto;
+  object-fit: contain;
+}
+
+.form__actions .button--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.8rem 1.2rem;
+}
+
+.form__actions .button--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .form__status {
@@ -1071,7 +1175,9 @@ button {
 
   display: block;
 
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background: #0b0b10;
 }
 
 .id-card__template-avatar {
@@ -1109,7 +1215,7 @@ button {
   position: absolute;
 
   left: 50%;
-  top: 79%;
+  top: 76%;
   transform: translate(-50%, -50%);
 
   padding: 0;
@@ -1249,326 +1355,34 @@ button {
 .section--game {
   position: relative;
 
-  padding: 8rem 6vw 5rem;
+  min-height: 100vh;
+  padding: 4rem 6vw;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
 
-  background: radial-gradient(circle at top,
-      rgba(93, 212, 255, 0.12),
-      transparent 60%);
+  background: transparent;
 
   overflow: hidden;
 }
 
-/* ================= HEADER ================= */
-
-.game-header {
-  position: relative;
-
-  z-index: 20;
-
-  width: 100%;
-  max-width: 900px;
-
-  text-align: center;
-
-  margin-bottom: 6rem;
-}
-
-.game-header h2 {
-  font-size: clamp(2.2rem, 5vw, 5rem);
-
-  line-height: 1.05;
-
-  margin-bottom: 1rem;
-}
-
-.game-header .section__lead {
-  font-size: 1rem;
-
-  color: var(--muted);
-
-  line-height: 1.6;
-}
-
-/* ================= WRAPPER ================= */
-
-.game-carousel-wrapper {
-  position: relative;
-
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 1;
-}
-
-/* ================= STAGE ================= */
-
-.game-stage {
-  width: 100%;
-  max-width: 1200px;
-
-  height: 460px;
-
-  position: relative;
-
-  perspective: 1400px;
-
-  overflow: visible;
-
-  touch-action: none;
-}
-
-/* ================= CYLINDER ================= */
-
-.game-cylinder {
-  position: absolute;
-
-  top: 40px;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  transform-style: preserve-3d;
-}
-
-/* ================= PANELS ================= */
-
-.game-panel {
-  position: absolute;
-
-  left: 0;
-  top: 0;
-
-  width: 100%;
-  height: 100%;
-
-  opacity: 0;
-
-  transition:
-    opacity 0.3s ease,
-    filter 0.3s ease;
-
-  filter: blur(5px) brightness(0.45);
-
-  pointer-events: none;
-}
-
-.game-panel.is-adjacent {
-  filter: blur(2px) brightness(0.75);
-}
-
-.game-panel.is-center {
-  filter: none;
-
-  pointer-events: auto;
-}
-
-/* ================= CARD ================= */
-
-.game-card {
-  width: 100%;
-  height: 100%;
-
-  perspective: 1200px;
-}
-
-.game-card__inner {
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  transform-style: preserve-3d;
-
-  transition: transform 0.7s ease;
-}
-
-.game-card__inner.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.game-card__face {
-  position: absolute;
-
-  inset: 0;
-
-  backface-visibility: hidden;
-
-  border-radius: 22px;
-
-  padding: 1.2rem;
-
-  background: url('/gamecardbg.png') center / cover no-repeat, var(--surface-2);
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden;
-
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.35);
-}
-
-.game-card__face--back {
-  transform: rotateY(180deg);
-
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-}
-
-/* ================= CONTENT ================= */
-
-.game-card__content {
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.game-card__meta {
-  font-size: 0.7rem;
-
-  letter-spacing: 0.42em;
-
-  text-transform: uppercase;
-
-  color: var(--muted);
-}
-
-.game-card h3 {
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
-
-  line-height: 1.45;
-
-  margin-top: 1rem;
-
-  overflow-wrap: break-word;
-}
-
-/* ================= OPTIONS ================= */
-
-.game-card__options {
-  display: grid;
-
-  gap: 0.7rem;
-
-  margin-top: auto;
-}
-
-.game-card__option {
-  background: rgba(255, 255, 255, 0.06);
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
-  color: var(--ink);
-
-  border-radius: 14px;
-
-  padding: 0.85rem 1rem;
-
-  font-size: 0.9rem;
-
-  text-align: left;
-
+.game-register-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
   cursor: pointer;
-
-  transition:
-    border 0.2s ease,
-    transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.game-card__option:hover {
-  border-color: var(--accent-2);
-
-  transform: translateY(-2px);
-}
-
-/* ================= LOCKED ================= */
-
-.game-card__locked {
-  margin-top: auto;
-
-  color: var(--muted);
-
-  font-size: 0.9rem;
-}
-
-/* ================= BACK ================= */
-
-.game-card__troll {
-  font-size: 1.2rem;
-
-  line-height: 1.7;
-}
-
-/* ================= CONTROLS ================= */
-
-.game-controls {
-  margin-top: 1rem;
-}
-
-.game-dots {
-  display: flex;
-
-  gap: 0.5rem;
-}
-
-.game-dot {
-  width: 8px;
-  height: 8px;
-
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.game-dot.is-active {
-  width: 24px;
-
-  background: var(--accent-2);
-}
-
-.game-dot.is-done {
-  background: var(--accent-4);
-}
-
-/* ================= FINALE ================= */
-
-.game-finale {
-  margin: 0 auto;
-
-  max-width: 520px;
-
-  text-align: center;
-
-  background: var(--surface-2);
-
-  padding: 2.2rem;
-
-  border-radius: 24px;
-
-  border: 1px solid var(--line);
-}
-
-.game-finale h3 {
-  margin-bottom: 0.8rem;
-}
-
-.game-finale p {
-  margin-bottom: 1.6rem;
-
-  color: var(--muted);
+.game-register-button img {
+  display: block;
+  width: min(120vw, 1300px);
+  max-height: 100vh;
+  object-fit: contain;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -1588,6 +1402,15 @@ button {
 
   .modal__body {
     grid-template-columns: 1fr;
+  }
+
+  .department-register-cta {
+    grid-column: span 1;
+  }
+
+  .department-register-cta img {
+    width: min(100%, 560px);
+    max-height: 300px;
   }
 }
 
@@ -1765,8 +1588,8 @@ button {
   }
 
   .id-card__name {
-    font-size: 0.95rem !important;
-    line-height: 1.2 !important;
+    font-size: 0.85rem !important;
+    line-height: 1.15 !important;
   }
 
   .id-card__role,
@@ -1775,14 +1598,14 @@ button {
   .id-card__meta,
   .id-card p,
   .id-card span {
-    font-size: 5rem !important;
-    line-height: 0 !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
   }
 
   .id-card__body {
-    gap: 0.55rem !important;
+    gap: 0.45rem !important;
 
-    padding: 0.8rem !important;
+    padding: 0.7rem !important;
   }
 
   .id-card__footer {

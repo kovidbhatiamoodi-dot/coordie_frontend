@@ -211,8 +211,8 @@ export default function RegisterModal({
             </div>
 
             <div className="form__actions">
-              <button className="button" type="submit" disabled={!canSubmit || submitState.status === 'loading'}>
-                {submitState.status === 'loading' ? 'Submitting...' : 'Submit Registration'}
+              <button className="button modal__submit-button" type="submit" disabled={!canSubmit || submitState.status === 'loading'} aria-label={submitState.status === 'loading' ? 'Submitting registration' : 'Submit registration'}>
+                <img src="/REGISTER.png" alt="Register" className="modal__submit-image" />
               </button>
               <button
                 className="button button--ghost"
@@ -251,6 +251,13 @@ export default function RegisterModal({
               ID card preview for the submitted details.
             </p>
           </div>
+        </div>
+
+        <div className="modal__whatsapp">
+          <p>Join our WhatsApp community and become part of the family.</p>
+          <a href="https://chat.whatsapp.com/Eif768pKMgz7cOe7cixO5D" target="_blank" rel="noreferrer">
+            Join our WhatsApp group
+          </a>
         </div>
       </div>
     </div>

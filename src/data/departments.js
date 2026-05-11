@@ -55,9 +55,9 @@ export const departments = [
   },
   {
     id: 7,
-    name: "Hospitality, Assistance and Public Relations",
+    name: "Hospitality and Public Relations",
     tag: "HAPR",
-    description: "Lovingly called Hospi, we are the backbone of the fest, handling networking, accommodation, vendor relations, and execution.",
+    description: "Lovingly called Hospi, we are the backbone of the fest, handling networking, accommodation, vendor relations, and execution,more then a department hospi is a family.",
     accent: "#b026ff",
     borderColor: "rgba(176,38,255,0.25)",
     glowColor: "rgba(176,38,255,0.08)",
