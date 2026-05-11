@@ -1,0 +1,246 @@
+# Mood Indigo Coordinator Portal
+
+Build a single-page coordinator portal for Mood Indigo (IIT Bombay's cultural fest). The design draws from the **2025 theme: "A Vortex of Vandalism"** — punk-inspired, gritty, high-contrast, rebellious energy with textured backgrounds.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Loading Animation Placeholder**: You mentioned you'll add the Mood Indigo intro animation later. I'll create a skeleton loading screen with a fade-out transition that you can swap in your custom animation. Does that work?
+
+> [!IMPORTANT]
+> **Theme Direction**: The 2025 Mood Indigo theme was **"A Vortex of Vandalism"** — punk aesthetic, gritty textures, neon accents on dark backgrounds, distressed typography. I'll use this as the design language. If you want a different vibe (cleaner, more ethnic like 2024's "Enigma of Ethnicity"), let me know.
+
+> [!IMPORTANT]
+> **Quiz Content**: The 6 quiz cards need questions and corresponding statements. I'll put in **placeholder questions** related to Mood Indigo (e.g., "What does Mood Indigo mean to you?") — you can replace these with your actual content. Sound good?
+
+## Open Questions
+
+1. **Which departments** should appear in the department cards section? I'll use these 6 based on research:
+   - Competitions & LYP
+   - Hospitality & PR
+   - Informals, Streets & Workshops
+   - Pronites
+   - Creatives, Design & Web
+   - Marketing & Sponsorship
+
+   Should I use different departments or add/remove any?
+
+2. **Mood Indigo logo** — do you have the logo file, or should I use a text-based logo for now?
+
+3. **Quiz questions** — do you have the 6 questions and reveal statements ready, or should I use placeholders?
+
+---
+
+## Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| **React 19** (via Vite) | UI framework |
+| **Tailwind CSS v4** | Utility-first styling |
+| **Framer Motion** | Scroll animations, card flips, carousel, page transitions |
+| **Google Fonts (Outfit + Space Grotesk)** | Typography |
+
+---
+
+## Proposed Changes
+
+### Project Setup
+
+#### [NEW] Vite + React project initialization
+
+- `npx -y create-vite@latest ./ --template react`
+- Install dependencies: `tailwindcss`, `framer-motion`, `@tailwindcss/vite`
+- Configure Tailwind v4 with custom theme tokens (colors, fonts)
+
+---
+
+### Section 1 — Loading Screen
+
+#### [NEW] `src/components/LoadingScreen.jsx`
+
+- Full-screen overlay with dark background
+- Animated "MOOD INDIGO" text with glitch/flicker effect
+- Placeholder container where user can later drop in their custom animation
+- Auto-dismisses after 3 seconds with a smooth fade-out
+- Uses `AnimatePresence` from Framer Motion for exit animation
+
+---
+
+### Section 2 — Hero Section
+
+#### [NEW] `src/components/HeroSection.jsx`
+
+**Layout:**
+- Split layout: left side = text content, right side = hero image
+- Mood Indigo logo positioned top-left or centered above the text
+- Staggered text reveal animation on scroll-into-view
+
+**Left side:**
+- Festival title with distressed/bold typography
+- 2-3 line description of Mood Indigo (Asia's largest college cultural festival)
+- CTA button (e.g., "Explore Departments")
+
+**Right side:**
+- Generated hero image depicting the festival energy
+- Image with a grunge mask/clip-path for non-rectangular framing
+
+**Background:**
+- Animated floating particles (subtle, punk-themed — like paint splatter dots)
+- Noise texture overlay via CSS `background-image` with SVG filter
+- Subtle grid lines fading in/out
+
+---
+
+### Section 3 — Department Cards
+
+#### [NEW] `src/components/DepartmentSection.jsx`
+#### [NEW] `src/components/DepartmentCard.jsx`
+
+**Layout:**
+- Section title: "DEPARTMENTS" with accent line
+- 2×3 or 3×2 responsive grid of department cards
+- Each card contains: department icon/emoji, name, brief description
+
+**Animations (Framer Motion):**
+- Cards stagger-fade-in as user scrolls into viewport (`whileInView`)
+- Subtle hover: card lifts (translateY), border glows with accent color
+- Minimal, clean cards with dark glass morphism (semi-transparent backgrounds)
+
+**Design:**
+- Dark card backgrounds (`rgba(15, 15, 15, 0.8)`) with thin neon border
+- Accent colors vary per card (neon pink, acid green, yellow, red, cyan, purple)
+- Monospace or bold sans-serif text
+
+---
+
+### Section 4 — Interactive Quiz Carousel
+
+#### [NEW] `src/components/QuizSection.jsx`
+#### [NEW] `src/components/QuizCarousel.jsx`
+#### [NEW] `src/components/QuizCard.jsx`
+
+This is the most complex section. Here's how it works:
+
+**Scroll Locking:**
+- When user scrolls into the quiz section, further page scroll is **blocked**
+- The section takes over the viewport (100vh sticky/fixed positioning)
+- Scroll unlocks only after all 6 cards are completed
+
+**Cylindrical Carousel:**
+- 3D perspective carousel using CSS `transform: rotateY()` + `translateZ()`
+- Center card is fully visible and in-focus
+- Left and right adjacent cards are partially visible with blur + scale-down
+- Cards beyond ±1 position are hidden
+- Navigation: left/right arrows (disabled until current card is answered)
+
+**Card Behavior (each of the 6 cards):**
+- **Front face**: Shows a question with a text input/multiple choice
+- **Back face**: After answering, card flips (3D `rotateY(180deg)` transition) to reveal a statement/message related to the question
+- **Sequential unlock**: Next card is only accessible after current card is answered and flipped
+- Cards that haven't been unlocked appear locked/greyed out in the carousel
+
+**Card Design:**
+- Dark card with neon border glow
+- Question text in bold, centered
+- Input field or answer options styled to match the punk theme
+- Flip animation: smooth 0.6s 3D rotation
+
+**Progress Indicator:**
+- Small dots or progress bar showing 1/6, 2/6, etc.
+- Completed cards get a checkmark indicator
+
+---
+
+### Shared / Global
+
+#### [NEW] `src/App.jsx`
+- Orchestrates all sections in order
+- Manages loading screen state (show/hide after animation)
+- Smooth scroll behavior
+
+#### [NEW] `src/index.css`
+- Tailwind v4 imports
+- Custom CSS for noise texture, scrollbar styling, global resets
+- Font imports (Outfit, Space Grotesk)
+- Custom animations (@keyframes for glitch, float, pulse)
+
+#### [NEW] `src/hooks/useScrollLock.js`
+- Custom hook to lock/unlock page scroll
+- Used by QuizSection to trap the user until quiz is complete
+
+#### [NEW] `src/data/departments.js`
+- Static data for department cards (name, description, accent color, icon)
+
+#### [NEW] `src/data/quizQuestions.js`
+- Static data for 6 quiz questions and their corresponding reveal statements
+
+---
+
+## Architecture Diagram
+
+```mermaid
+graph TD
+    A["App.jsx"] --> B["LoadingScreen"]
+    A --> C["HeroSection"]
+    A --> D["DepartmentSection"]
+    A --> E["QuizSection"]
+    
+    D --> D1["DepartmentCard ×6"]
+    
+    E --> E1["QuizCarousel"]
+    E1 --> E2["QuizCard ×6"]
+    
+    E -->|uses| H["useScrollLock hook"]
+    
+    style B fill:#1a1a2e,stroke:#ff1493
+    style C fill:#1a1a2e,stroke:#00ff41
+    style D fill:#1a1a2e,stroke:#ffd700
+    style E fill:#1a1a2e,stroke:#00d4ff
+```
+
+---
+
+## Design System
+
+### Colors
+| Token | Value | Usage |
+|-------|-------|-------|
+| `bg-primary` | `#0a0a0a` | Main background |
+| `bg-card` | `#111111` | Card backgrounds |
+| `text-primary` | `#f0f0f0` | Main text |
+| `text-muted` | `#888888` | Secondary text |
+| `accent-pink` | `#ff1493` | Primary accent |
+| `accent-green` | `#00ff41` | Secondary accent |
+| `accent-yellow` | `#ffd700` | Tertiary accent |
+| `accent-red` | `#e83a30` | Alert accent |
+| `accent-cyan` | `#00d4ff` | Cool accent |
+| `accent-purple` | `#b026ff` | Sixth accent |
+
+### Typography
+- **Headings**: `Space Grotesk` — bold, slightly techy, matches punk-modern vibe
+- **Body**: `Outfit` — clean, readable, modern sans-serif
+- **Monospace accents**: `JetBrains Mono` for small labels/tags
+
+### Textures
+- SVG noise filter overlay (subtle grain)
+- CSS `radial-gradient` for vignette effect on hero
+- Thin grid lines in background (very low opacity)
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to ensure production build passes
+- `npm run dev` to verify hot reload works
+
+### Manual Verification
+- Visual check of all 4 sections in browser
+- Test scroll locking behavior in quiz section
+- Test card flip and sequential unlock on quiz cards
+- Responsive check at mobile (375px), tablet (768px), desktop (1440px)
+- Performance check — ensure animations are smooth (60fps)
+
+### Browser Recording
+- Record a full scroll-through of the site using the browser tool
+- Record quiz interaction flow (answer → flip → next card)
