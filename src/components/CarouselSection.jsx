@@ -68,11 +68,13 @@ function GameCard({ card, isUnlocked, isFlipped, onAnswer, answer }) {
 }
 
 function Cylinder({
+  cards,
   current,
   completed,
   answers,
   onAnswer,
-  onWheelNavigate
+  onWheelNavigate,
+  onRegisterClick
 }) {
   const stageRef = useRef(null);
 
@@ -84,19 +86,18 @@ function Cylinder({
   const touchX = useRef(0);
   const touchY = useRef(0);
   const touchActive = useRef(false);
-  const touchAxis = useRef('');
 
-  const total = cardData.length;
+  const total = cards.length;
   const angleStep = 360 / total;
 
   const cardW = Math.min(
-    stageW * (isNarrow ? 0.52 : 0.30),
-    isNarrow ? 220 : 320
+    stageW * (isNarrow ? 0.44 : 0.30),
+    isNarrow ? 190 : 320
   );
 
-  const cardH = isNarrow ? 330 : 380;
+  const cardH = isNarrow ? 320 : 380;
 
-  const radius = Math.round(cardW * 1.2);
+  const radius = Math.round(cardW * (isNarrow ? 1.05 : 1.2));
 
   useEffect(() => {
     const measure = () => {
@@ -133,7 +134,6 @@ function Cylinder({
     touchX.current = event.touches[0].clientX;
     touchY.current = event.touches[0].clientY;
     touchActive.current = true;
-    touchAxis.current = '';
   };
 
   const onTouchMove = event => {
@@ -141,12 +141,7 @@ function Cylinder({
     const dx = event.touches[0].clientX - touchX.current;
     const dy = event.touches[0].clientY - touchY.current;
 
-    if (!touchAxis.current) {
-      if (Math.max(Math.abs(dx), Math.abs(dy)) < 8) return;
-      touchAxis.current = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    }
-
-    if (touchAxis.current === 'x' && event.cancelable) {
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8 && event.cancelable) {
       event.preventDefault();
     }
   };
@@ -159,11 +154,7 @@ function Cylinder({
     const dy =
       touchY.current - event.changedTouches[0].clientY;
 
-    if (!touchAxis.current) {
-      touchAxis.current = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    }
-
-    if (touchAxis.current !== 'x') return;
+    if (Math.abs(dx) <= Math.abs(dy) || Math.abs(dx) < 24) return;
 
     onWheelNavigate(dx, true);
   };
@@ -186,7 +177,7 @@ function Cylinder({
           marginLeft: -cardW / 2
         }}
       >
-        {cardData.map((card, index) => {
+        {cards.map((card, index) => {
           const angle = index * angleStep;
 
           let rel = index - current;
@@ -208,17 +199,44 @@ function Cylinder({
                 opacity: isVisible ? 1 : 0
               }}
             >
-              <GameCard
-                card={card}
-                isUnlocked={
-                  index === 0 || completed.has(index - 1)
-                }
-                isFlipped={completed.has(index)}
-                answer={answers[index]}
-                onAnswer={option =>
-                  onAnswer(index, option)
-                }
-              />
+              {card.isRegCard ? (
+                <div className="game-card">
+                  <div className="game-card__inner">
+                    <div className="game-card__face" style={{ borderColor: 'var(--accent-4)' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', textAlign: 'center', padding: '1rem', gap: '1.5rem' }}>
+                        <h3 style={{ fontSize: '1.3rem', margin: 0, lineHeight: '1.4' }}>
+                          All this does not matter.
+                          You can still become a coordinator.
+                        </h3>
+
+                        <p style={{ margin: 0, color: 'var(--muted)', fontSize: '0.9rem' }}>
+                          Register now. We will take it from here.
+                        </p>
+
+                        <button
+                          className="button"
+                          type="button"
+                          onClick={onRegisterClick}
+                        >
+                          Register Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <GameCard
+                  card={card}
+                  isUnlocked={
+                    index === 0 || completed.has(index - 1)
+                  }
+                  isFlipped={completed.has(index)}
+                  answer={answers[index]}
+                  onAnswer={option =>
+                    onAnswer(index, option)
+                  }
+                />
+              )}
             </div>
           );
         })}
@@ -237,7 +255,7 @@ export default function CarouselSection({
 
   const [answers, setAnswers] = useState({});
 
-  const [allDone, setAllDone] = useState(false);
+  const cards = [...cardData, { id: 'reg', isRegCard: true }];
 
   useEffect(() => {
     onAnswersChange(
@@ -261,17 +279,13 @@ export default function CarouselSection({
       next.add(index);
       return next;
     });
-
-    if (index === cardData.length - 1) {
-      setTimeout(() => {
-        setAllDone(true);
-      }, 650);
-    }
   };
 
   const canFwd =
-    current < cardData.length - 1 &&
+    current < cards.length - 1 &&
     completed.has(current);
+
+  const lastScrollTime = useRef(0);
 
   const handleWheelNavigate = (
     eventOrDx,
@@ -293,10 +307,17 @@ export default function CarouselSection({
       eventOrDx.preventDefault();
     }
 
+    const now = Date.now();
+    if (now - lastScrollTime.current < 500) {
+      return;
+    }
+
     if (dx > 30 && canFwd) {
       setCurrent(value => value + 1);
+      lastScrollTime.current = now;
     } else if (dx < -30 && current > 0) {
       setCurrent(value => value - 1);
+      lastScrollTime.current = now;
     }
   };
 
@@ -306,10 +327,6 @@ export default function CarouselSection({
       className="section section--game"
     >
       <div className="game-header">
-        <p className="section__eyebrow">
-          The Trolling Ritual
-        </p>
-
         <h2>
           Six cards. Two choices. No escape.
         </h2>
@@ -320,55 +337,34 @@ export default function CarouselSection({
         </p>
       </div>
 
-      {!allDone ? (
-        <>
-          <div className="game-carousel-wrapper">
-            <Cylinder
-              current={current}
-              completed={completed}
-              answers={answers}
-              onAnswer={handleAnswer}
-              onWheelNavigate={handleWheelNavigate}
+      <div className="game-carousel-wrapper">
+        <Cylinder
+          cards={cards}
+          current={current}
+          completed={completed}
+          answers={answers}
+          onAnswer={handleAnswer}
+          onWheelNavigate={handleWheelNavigate}
+          onRegisterClick={onRegisterClick}
+        />
+      </div>
+
+      <div className="game-controls">
+        <div className="game-dots">
+          {cards.map((card, index) => (
+            <span
+              key={card.id}
+              className={`game-dot ${index === current
+                  ? 'is-active'
+                  : ''
+                } ${index < cards.length - 1 && completed.has(index)
+                  ? 'is-done'
+                  : ''
+                }`}
             />
-          </div>
-
-          <div className="game-controls">
-            <div className="game-dots">
-              {cardData.map((card, index) => (
-                <span
-                  key={card.id}
-                  className={`game-dot ${index === current
-                      ? 'is-active'
-                      : ''
-                    } ${completed.has(index)
-                      ? 'is-done'
-                      : ''
-                    }`}
-                />
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="game-finale">
-          <h3>
-            All this does not matter.
-            You can still become a coordinator.
-          </h3>
-
-          <p>
-            Register now. We will take it from here.
-          </p>
-
-          <button
-            className="button"
-            type="button"
-            onClick={onRegisterClick}
-          >
-            Register Now
-          </button>
+          ))}
         </div>
-      )}
+      </div>
     </section>
   );
 }

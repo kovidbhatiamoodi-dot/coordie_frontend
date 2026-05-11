@@ -20,7 +20,7 @@ export default function HeroSection({ onRegisterClick }) {
 
   // On desktop: -140px base offset (matches CSS). On mobile: 0 offset, let flex centering handle position.
   const baseOffset = isMobile ? 0 : -140;
-  const speed = isMobile ? 0.2 : 0.3;
+  const speed = isMobile ? 0.4 : 0.3;
   const headingParallax = {
     transform: `translateY(${baseOffset + scrollY * speed}px)`,
   };
@@ -28,9 +28,6 @@ export default function HeroSection({ onRegisterClick }) {
   return (
     <section id="hero" className="hero">
       <div className="hero__bg" aria-hidden="true">
-        <div className="hero__orb hero__orb--one" />
-        <div className="hero__orb hero__orb--two" />
-        <div className="hero__orb hero__orb--three" />
         <div className="hero__noise" />
       </div>
 

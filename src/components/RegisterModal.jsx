@@ -35,23 +35,24 @@ export default function RegisterModal({
       formData.fullName.trim() &&
       formData.roll.trim() &&
       formData.phone.trim() &&
-      formData.avatar
+      formData.avatar &&
+      (formData.interestedDepartments || []).length > 0
     );
   }, [formData]);
 
   const departmentOptions = [
-    'Services',
-    'Marketing',
-    'Informals, Streets and Workshops',
-    'Hospitality, Assistance and Public Relations',
-    'Media, Publicity and Alumni Relations',
-    'Ambience',
-    'Web and Tech',
-    'Design',
-    'Horizons',
-    'Pronites',
     'Competitions and LYPs',
+    'Ambience',
+    'Design',
+    'Web and Tech',
     'Food and Beverages',
+    'Horizons And Proshows',
+    'Hospitality, Assistance and Public Relations',
+    'Informals, Streets and Workshops',
+    'Marketing',
+    'Media, Publicity and Alumni Relations',
+    'Pronites',
+    'Services',
   ];
 
   const avatarOptions = [

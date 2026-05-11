@@ -18,8 +18,8 @@
   --bg: #0b0b10;
   --surface: #11111a;
   --surface-2: #161624;
-  --ink: #f4f3f7;
-  --muted: #b3b1c4;
+  --ink: #ffffff;
+  --muted: #ffffff;
   --accent: #ff7a30;
   --accent-2: #5dd4ff;
   --accent-3: #9b7bff;
@@ -42,6 +42,7 @@ body {
   background: var(--bg) url('/BG_new.png') center / cover no-repeat fixed;
   color: var(--ink);
   font-family: 'Owners', sans-serif;
+  letter-spacing: 0.06em;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -55,6 +56,17 @@ h3 {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+p,
+span,
+small,
+label,
+button,
+input,
+textarea,
+select {
+  letter-spacing: 0.06em;
 }
 
 button {
@@ -103,20 +115,20 @@ button {
 
 .nav {
   position: sticky;
-  top: 0;
+  top: 1rem;
   z-index: 50;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 1.2rem 6vw;
+  margin: 0 4vw;
+  padding: 0.6rem 2rem;
 
-  background: rgba(11, 11, 16, 0.9);
+  background: #000000;
 
-  backdrop-filter: blur(16px);
-
-  border-bottom: 1px solid var(--line);
+  border: 2px solid #000000;
+  border-radius: 999px;
 }
 
 .nav__brand {
@@ -137,9 +149,7 @@ button {
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(135deg,
-      var(--accent),
-      var(--accent-3));
+  background: transparent;
 }
 
 .nav__badge img {
@@ -160,17 +170,18 @@ button {
 
   text-transform: uppercase;
 
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
 }
 
 .nav__links {
   display: flex;
-
-  gap: 1.5rem;
-
+  gap: 2.5rem;
   font-size: 0.85rem;
-
   color: var(--muted);
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* ================= BUTTONS ================= */
@@ -180,7 +191,7 @@ button {
       var(--accent),
       var(--accent-3));
 
-  color: #0b0b10;
+  color: #ffffff;
 
   padding: 0.85rem 1.8rem;
 
@@ -207,7 +218,7 @@ button {
 .button--ghost {
   background: transparent;
 
-  color: var(--ink);
+  color: #ffffff;
 
   border: 1px solid var(--line);
 }
@@ -410,7 +421,7 @@ button {
 
   font-size: 0.75rem;
 
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
 
   text-transform: uppercase;
 
@@ -537,7 +548,7 @@ button {
 
   font-size: 0.9rem;
 
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
 
   text-transform: uppercase;
 }
@@ -545,7 +556,7 @@ button {
 .hero__image-caption {
   font-size: 0.75rem;
 
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
 
   text-transform: uppercase;
 
@@ -555,12 +566,36 @@ button {
 /* ================= GENERIC SECTIONS ================= */
 
 .section {
-  padding: 5rem 6vw;
+  padding: 8rem 6vw;
 }
 
 .section__header {
-  max-width: 640px;
-  margin-bottom: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.section__header-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  transform: translateX(-16px);
+}
+
+.section__header-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 0;
+  letter-spacing: 0.08em;
+  max-width: 700px;
+  text-align: left;
 }
 
 .section__header--center {
@@ -571,7 +606,7 @@ button {
 .section__eyebrow {
   font-size: 0.7rem;
 
-  letter-spacing: 0.3em;
+  letter-spacing: 0.42em;
 
   text-transform: uppercase;
 
@@ -632,10 +667,30 @@ button {
 
 .departments {
   display: grid;
-
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+  perspective: 1200px;
+}
 
-  gap: 1.5rem;
+.departments__title-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.departments__title {
+  
+  margin: 0;
+  margin-top: 4.5rem;
+  text-align: center;
+  font-family: 'Owners', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: 0.00em;
+  text-transform: uppercase;
 }
 
 .department-card {
@@ -647,6 +702,7 @@ button {
 
   background: url('/department_Card_bg.png') center / cover no-repeat;
   border: none;
+  box-shadow: 0 0 0 5px #000;
 
   overflow: hidden;
 
@@ -656,7 +712,8 @@ button {
 .department-card h3 {
   margin: 0.9rem 0;
 
-  font-size: 1.2rem;
+  font-size: 1.45rem;
+  line-height: 1.2;
 }
 
 .department-card p {
@@ -668,7 +725,7 @@ button {
 .department-card__tag {
   font-size: 0.7rem;
 
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
 
   text-transform: uppercase;
 
@@ -798,7 +855,7 @@ button {
 
 .form__section-title {
   font-size: 0.8rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
 
   color: var(--accent-2);
@@ -1020,11 +1077,11 @@ button {
 .id-card__template-avatar {
   position: absolute;
 
-  width: 280px;
-  height: 280px;
+  width: 320px;
+  height: 320px;
 
   left: 50%;
-  top: 40%;
+  top: 45%;
   transform: translate(-50%, -50%);
 
   border-radius: 50%;
@@ -1066,7 +1123,7 @@ button {
   font-family: 'Owners', sans-serif;
   font-weight: 700;
   text-shadow: 0 20px 12px rgba(0, 0, 0, 0.6);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
 
   max-width: 95%;
   text-align: center;
@@ -1103,7 +1160,7 @@ button {
 .id-card__subtitle {
   font-size: 0.75rem;
 
-  letter-spacing: 0.18em;
+  letter-spacing: 0.25em;
 
   text-transform: uppercase;
 
@@ -1192,7 +1249,7 @@ button {
 .section--game {
   position: relative;
 
-  padding: 4rem 6vw 5rem;
+  padding: 8rem 6vw 5rem;
 
   display: flex;
   flex-direction: column;
@@ -1217,7 +1274,7 @@ button {
 
   text-align: center;
 
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
 }
 
 .game-header h2 {
@@ -1264,7 +1321,7 @@ button {
 
   overflow: visible;
 
-  touch-action: pan-y;
+  touch-action: none;
 }
 
 /* ================= CYLINDER ================= */
@@ -1348,7 +1405,7 @@ button {
 
   padding: 1.2rem;
 
-  background: var(--surface-2);
+  background: url('/gamecardbg.png') center / cover no-repeat, var(--surface-2);
 
   border: 1px solid rgba(255, 255, 255, 0.12);
 
@@ -1382,7 +1439,7 @@ button {
 .game-card__meta {
   font-size: 0.7rem;
 
-  letter-spacing: 0.3em;
+  letter-spacing: 0.42em;
 
   text-transform: uppercase;
 
@@ -1534,7 +1591,34 @@ button {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero__parallax {
+    width: 160vw;
+    bottom: -8%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero__parallax img {
+    transform: scale(1.4);
+    transform-origin: bottom center;
+  }
+}
+
 @media (max-width: 720px) {
+  .nav {
+    padding: 0.4rem 1rem;
+    margin: 0 2vw;
+  }
+
+  .hero__heading-image {
+    width: 65vw;
+  }
+
   .modal {
     align-items: flex-start;
 
@@ -1570,32 +1654,27 @@ button {
 
   .hero__top-logo {
     width: 75%;
-    margin-top: 65%;
-    transform: translateY(-30%);
+    margin-top: 35%;
+    transform: translateY(-70%);
   }
 
   .hero__heading-image {
     width: 95vw;
-    margin-top: -8px;
+    margin-top: -28px;
   }
 
   .hero__mobile-desc {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-align: center;
-    line-height: 1.5;
-    margin: 0 auto -45%;
-    max-width: 90%;
-    z-index: 2;
+    display: none;
   }
 
   .hero__parallax {
     width: 100vw;
-    bottom: -10%;
-  }.hero__parallax img {
+    bottom: 2%;
+  }
+
+  .hero__parallax img {
     max-height: none;
-    transform: scale(2.6);
+    transform: scale(3);
     transform-origin: bottom center;
   }
 
@@ -1605,6 +1684,25 @@ button {
 
   .hero__meta {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .section__header-image {
+    max-width: 180px;
+    margin-bottom: 1rem;
+    margin-top: -1.5rem;
+  }
+
+  .section__header-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .section__header {
+    flex-direction: column;
+    gap: 0;
   }
 
   .section--game {
@@ -1645,10 +1743,19 @@ button {
     line-height: 1.4;
   }
 
+  .department-card h3 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
   .game-card__option {
     padding: 0.7rem 0.8rem;
 
     font-size: 0.8rem;
+  }
+
+  .game-controls {
+    margin-top: 2.2rem;
   }
 
 
