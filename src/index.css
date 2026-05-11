@@ -123,11 +123,11 @@ button {
   justify-content: space-between;
 
   margin: 0 4vw;
-  padding: 0rem 2rem;
+  padding: 0rem 4rem;
 
   background: #000000;
 
-  border: 2px solid #000000;
+  
   border-radius: 999px;
 }
 
@@ -146,7 +146,7 @@ button {
   overflow: hidden;
 
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: center;
 
   background: transparent;
@@ -1432,7 +1432,7 @@ button {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px) and (min-width: 400px) {
   .nav {
     padding: 0.1rem 1rem;
     margin: 0 2vw;
@@ -1493,6 +1493,196 @@ button {
   .hero__parallax {
     width: 100vw;
     bottom: 2%;
+  }
+
+  .hero__parallax img {
+    max-height: none;
+    transform: scale(3);
+    transform-origin: bottom center;
+  }
+
+  .hero__text h1 {
+    font-size: clamp(2.2rem, 9vw, 3.4rem);
+  }
+
+  .hero__meta {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .section__header-image {
+    max-width: 180px;
+    margin-bottom: 1rem;
+    margin-top: -1.5rem;
+  }
+
+  .section__header-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .section__header {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .section--game {
+    padding: 2.5rem 4vw 4rem;
+  }
+
+  .game-header {
+    margin-bottom: 2rem;
+  }
+
+  .game-header h2 {
+    font-size: 2.6rem;
+
+    line-height: 1.08;
+  }
+
+  .game-header .section__lead {
+    font-size: 0.9rem;
+  }
+
+  .game-stage {
+    height: 360px;
+  }
+
+  .game-cylinder {
+    top: 20px;
+  }
+
+  .game-card__face {
+    padding: 1rem;
+
+    border-radius: 18px;
+  }
+
+  .game-card h3 {
+    font-size: 0.95rem;
+
+    line-height: 1.4;
+  }
+
+  .department-card h3 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .game-card__option {
+    padding: 0.7rem 0.8rem;
+
+    font-size: 0.8rem;
+  }
+
+  .game-controls {
+    margin-top: 2.2rem;
+  }
+
+
+  .id-card__avatar {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .id-card__name {
+    font-size: 0.85rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .id-card__role,
+  .id-card__dept,
+  .id-card__footer,
+  .id-card__meta,
+  .id-card p,
+  .id-card span {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .id-card__body {
+    gap: 0.45rem !important;
+
+    padding: 0.7rem !important;
+  }
+
+  .id-card__footer {
+    flex-direction: column;
+
+    gap: 0.3rem;
+  }
+
+  .helper-text {
+    text-align: center;
+
+    font-size: 0.78rem;
+
+    margin-top: 0.6rem;
+  }
+}
+@media (max-width: 400px){
+  .nav {
+    padding: 0.1rem 1rem;
+    margin: 0 2vw;
+  }
+
+  .hero__heading-image {
+    width: 65vw;
+  }
+
+  .modal {
+    align-items: flex-start;
+
+    padding: 1.5rem 4vw;
+  }
+
+  .modal__panel {
+    max-height: calc(100vh - 3rem);
+  }
+
+  .id-card__template-name {
+    top: 70%;
+    font-size: 4rem;
+    line-height: 0.7;
+  }
+
+  .form__actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .hero {
+    padding: 5rem 5vw 0;
+    align-items: flex-start;
+    height: 88vh;
+    min-height: unset;
+  }
+
+  .hero__content--heading {
+    gap: 0rem;
+  }
+
+  .hero__top-logo {
+    width: 75%;
+    margin-top: 25%;
+    transform: translateY(-70%);
+  }
+
+  .hero__heading-image {
+    width: 95vw;
+    margin-top: -25px;
+  }
+
+  .hero__mobile-desc {
+    display: none;
+  }
+
+  .hero__parallax {
+    width: 100vw;
+    bottom: -5%;
   }
 
   .hero__parallax img {
