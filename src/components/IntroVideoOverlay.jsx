@@ -7,6 +7,8 @@ export default function IntroVideoOverlay({ onEnd }) {
   useEffect(() => {
     if (!videoRef.current) return;
     videoRef.current.currentTime = 0;
+    videoRef.current.muted = true;
+    videoRef.current.defaultMuted = true;
     const playPromise = videoRef.current.play();
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(() => {});
@@ -35,7 +37,14 @@ export default function IntroVideoOverlay({ onEnd }) {
         src="/Intro%20Reel%20Cordie.mp4"
         autoPlay
         muted
+        defaultMuted
         playsInline
+        preload="auto"
+        controls={false}
+        disablePictureInPicture
+        controlsList="nodownload nofullscreen noremoteplayback"
+        onLoadedMetadata={() => videoRef.current?.play()}
+        onCanPlay={() => videoRef.current?.play()}
         onEnded={onEnd}
       />
     </div>
