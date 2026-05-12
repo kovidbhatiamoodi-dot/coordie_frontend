@@ -3,6 +3,8 @@ import HeroSection from './components/HeroSection';
 import DepartmentSection from './components/DepartmentSection';
 import Navbar from './components/Navbar';
 import RegisterModal from './components/RegisterModal';
+import IntroVideoOverlay from './components/IntroVideoOverlay';
+import { useScrollLock } from './hooks/useScrollLock';
 
 const EMPTY_FORM = {
   fullName: '',
@@ -18,6 +20,9 @@ export default function App() {
   const [registered, setRegistered] = useState(false);
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
+  const [showIntro, setShowIntro] = useState(true);
+
+  useScrollLock(showIntro);
 
   const apiBase = useMemo(() => {
     return import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -52,9 +57,11 @@ export default function App() {
 
   const openRegister = () => setRegisterOpen(true);
   const closeRegister = () => setRegisterOpen(false);
+  const handleIntroEnd = () => setShowIntro(false);
 
   return (
     <div className="page">
+      {showIntro && <IntroVideoOverlay onEnd={handleIntroEnd} />}
       <Navbar onRegisterClick={openRegister} />
       <main>
         <HeroSection onRegisterClick={openRegister} />

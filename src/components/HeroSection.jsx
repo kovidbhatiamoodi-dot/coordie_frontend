@@ -33,7 +33,7 @@ export default function HeroSection({ onRegisterClick }) {
 
       <div className="hero__content hero__content--heading" style={headingParallax}>
         <p className="hero__mobile-desc">
-          Mood Indigo is the annual cultural festival of IIT Bombay, and Asia's largest college cultural festival. Step into a world of endless energy, unparalleled creativity, and unforgettable moments.
+        It is not just a fest, but an emotion an expression of euphoria, with a footfall of over 154,000 students from more than 7,000 colleges. Started in 1971, it has attracted people from all over the globe ever since. Mood Indigo has lived through decades of musical and cultural change, not only keeping up with the times but also setting new standards for cultural festivals each year. Now, we are back with the 56th edition.
         </p>
         <div className="hero__top-logo">
           <img src="/MItoplogo.png" alt="Mood Indigo" />
