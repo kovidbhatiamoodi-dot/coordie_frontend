@@ -1,7 +1,7 @@
 export const departments = [
   {
     id: 1,
-    name: "Competitions and LYPs",
+    name: "Competitions and LYP",
     tag: "COMPI",
     description: "The department where Mood Indigo began, building competitions, creating collaborations, and driving the fest forward ever since.",
     accent: "#00ff9f",
